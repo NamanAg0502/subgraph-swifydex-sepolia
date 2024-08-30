@@ -22,6 +22,7 @@ dataSources:
       abis:
         - name: SwifyDexFactory
           file: ./abis/SwifyDexFactory.json
+
       eventHandlers:
         - event: FeeAmountEnabled(indexed uint24,indexed int24)
           handler: handleFeeAmountEnabled
@@ -30,3 +31,82 @@ dataSources:
         - event: PoolCreated(indexed address,indexed address,indexed uint24,int24,address)
           handler: handlePoolCreated
       file: ./src/swify-dex-factory.ts
+  - kind: ethereum
+    name: NonfungiblePositionManager
+    network: sepolia
+    source:
+      address: "0xa85fDDEf177785d925F980679a12938d62cc5a8D"
+      abi: NonfungiblePositionManager
+      startBlock: 5808466
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - IncreaseLiquidity
+        - DecreaseLiquidity
+        - Collect
+        - Transfer
+      abis:
+        - name: NonfungiblePositionManager
+          file: ./abis/NonfungiblePositionManager.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: IncreaseLiquidity(indexed uint256,uint128,uint256,uint256)
+          handler: handleIncreaseLiquidity
+        - event: DecreaseLiquidity(indexed uint256,uint128,uint256,uint256)
+          handler: handleDecreaseLiquidity
+        - event: Collect(indexed uint256,address,uint256,uint256)
+          handler: handleCollect
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/non-fungible-position-manager.ts
+  - kind: ethereum
+    name: SwifyDexPool
+    network: sepolia
+    source:
+      address: "0xC797cE2Da96Eb925aeF84c097bD3d9424f527F06"
+      abi: SwifyDexPool
+      startBlock: 5808466
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Burn
+          - CollectPool
+          - CollectProtocol
+          - Flash
+          - IncreaseObservationCardinalityNext
+          - Initialize
+          - Mint
+          - SetFeeProtocol
+          - Swap
+      abis:
+        - name: SwifyDexPool
+          file: ./abis/SwifyDexPool.json
+      eventHandlers:
+        - event: Burn(indexed address,indexed int24,indexed int24,uint128,uint256,uint256)
+          handler: handleBurn
+        - event: Collect(indexed address,address,indexed int24,indexed int24,uint128,uint128)
+          handler: handleCollectPool
+        - event: CollectProtocol(indexed address,indexed address,uint128,uint128)
+          handler: handleCollectProtocol
+        - event: Flash(indexed address,indexed address,uint256,uint256,uint256,uint256)
+          handler: handleFlash
+        - event: IncreaseObservationCardinalityNext(uint16,uint16)
+          handler: handleIncreaseObservationCardinalityNext
+        - event: Initialize(uint160,int24)
+          handler: handleInitialize
+        - event: Mint(address,indexed address,indexed int24,indexed int24,uint128,uint256,uint256)
+          handler: handleMint
+        - event: SetFeeProtocol(uint8,uint8,uint8,uint8)
+          handler: handleSetFeeProtocol
+        - event: Swap(indexed address,indexed address,int256,int256,uint160,uint128,int24)
+          handler: handleSwap
+      file: ./src/swify-dex-pool.ts
