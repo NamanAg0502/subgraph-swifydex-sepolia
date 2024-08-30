@@ -1,0 +1,8 @@
+{
+  "sepolia": {
+    "SwifyDexFactory": {
+      "address": "0x31C1E08163967845d4acECb0C106B2Fd35cc0DCc",
+      "startBlock": 5808463
+    }
+  }
+}
